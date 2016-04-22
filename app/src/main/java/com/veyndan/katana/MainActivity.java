@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.profile) ImageView profile;
     @Bind(R.id.name) TextView name;
+    @Bind(R.id.date) TextView date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,5 +26,6 @@ public class MainActivity extends AppCompatActivity {
                 "37_6490425404654077477_n.jpg?oh=8b2c57c4d2ec59ba0605d28fe68a1e5c&oe=57B59F67";
         Glide.with(this).load(imageUrl).into(profile);
         name.setText("Veyndan Stuart");
+        date.setText("1 Apr at 15:17");
     }
 }
