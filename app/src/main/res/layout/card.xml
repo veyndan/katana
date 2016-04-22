@@ -58,6 +58,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/profile"/>
 
+        <!-- TODO: Holding down button causes flicker -->
+        <ToggleButton
+            android:id="@+id/like"
+            style="@style/ImageToggle"
+            android:layout_alignLeft="@id/image"
+            android:layout_alignStart="@id/image"
+            android:layout_below="@id/image"
+            android:layout_margin="16dp"
+            android:drawableTop="@drawable/like"/>
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
