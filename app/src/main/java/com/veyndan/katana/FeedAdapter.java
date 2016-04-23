@@ -29,7 +29,7 @@ public class FeedAdapter extends RecyclerView.Adapter<VH> {
         final Post post = posts.get(position);
         final Context context = holder.itemView.getContext();
         Glide.with(context).load(post.getProfileUrl()).into(holder.profile);
-        holder.name.setText(post.getName());
+        holder.name.setText(post.getType());
         holder.date.setText(post.getDate());
         Glide.with(context).load(post.getImageUrl()).into(holder.image);
         holder.like.setSelected(post.isLiked());
