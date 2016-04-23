@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Katana</string>
     <string name="action_friends">Friends</string>
+    <string name="action_notifications">Notifications</string>
 </resources>
