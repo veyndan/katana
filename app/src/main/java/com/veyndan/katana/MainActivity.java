@@ -2,9 +2,11 @@ package com.veyndan.katana;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,16 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        Toolbar toolbar = getToolbar();
+        if (toolbar != null) {
+            toolbar.setNavigationIcon(R.drawable.ic_facebook_24dp);
+        }
+
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setTitle(null);
+        }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new FeedAdapter(init()));
