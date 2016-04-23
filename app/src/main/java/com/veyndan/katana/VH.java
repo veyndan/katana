@@ -13,8 +13,10 @@ public class VH extends RecyclerView.ViewHolder {
 
     @Bind(R.id.profile) ImageView profile;
     @Bind(R.id.name) TextView name;
-    @Bind(R.id.image) ImageView image;
     @Bind(R.id.like) ToggleButton like;
+
+    @Bind(R.id.text) TextView text;
+    @Bind(R.id.image) ImageView image;
 
     public VH(View itemView) {
         super(itemView);

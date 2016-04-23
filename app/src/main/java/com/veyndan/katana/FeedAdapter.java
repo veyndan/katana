@@ -30,8 +30,24 @@ public class FeedAdapter extends RecyclerView.Adapter<VH> {
         final Context context = holder.itemView.getContext();
         Glide.with(context).load(post.getProfileUrl()).into(holder.profile);
         holder.name.setText(post.getType());
-        Glide.with(context).load(post.getImageUrl()).into(holder.image);
         holder.like.setSelected(post.isLiked());
+
+        Post.Description description = post.getDescription();
+        String text = description.getText();
+        String imageUrl = description.getImageUrl();
+
+        if (text != null) {
+            holder.text.setText(text);
+            holder.text.setVisibility(View.VISIBLE);
+        } else {
+            holder.text.setVisibility(View.GONE);
+        }
+        if (imageUrl != null) {
+            Glide.with(context).load(post.getDescription().getImageUrl()).into(holder.image);
+            holder.image.setVisibility(View.VISIBLE);
+        } else {
+            holder.image.setVisibility(View.GONE);
+        }
 
         holder.like.setOnClickListener(new View.OnClickListener() {
             @Override

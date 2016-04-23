@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
@@ -30,7 +31,7 @@ public class Post {
     private final String name;
     private final Spannable type;
     private final String date;
-    private final String imageUrl;
+    private final Description description;
     private boolean liked;
 
     StyleSpan boldSpan;
@@ -39,7 +40,7 @@ public class Post {
     int dateLineSpacing;
 
     public Post(Context context, String profileUrl, String name, @Type String type, String date,
-                String imageUrl) {
+                Description description) {
         boldSpan = new StyleSpan(Typeface.BOLD);
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = context.getTheme();
@@ -52,7 +53,7 @@ public class Post {
         this.name = name;
         this.date = date;
         this.type = initializeType(type);
-        this.imageUrl = imageUrl;
+        this.description = description;
         this.liked = false;
     }
 
@@ -103,12 +104,8 @@ public class Post {
         return type;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
+    public Description getDescription() {
+        return description;
     }
 
     public boolean isLiked() {
@@ -117,5 +114,24 @@ public class Post {
 
     public void setLiked(boolean liked) {
         this.liked = liked;
+    }
+
+    public static class Description {
+
+        private final String text;
+        private final String imageUrl;
+
+        public Description(@Nullable String text, @Nullable String imageUrl) {
+            this.text = text;
+            this.imageUrl = imageUrl;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
     }
 }
