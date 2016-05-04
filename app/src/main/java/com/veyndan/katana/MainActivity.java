@@ -7,10 +7,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +61,25 @@ public class MainActivity extends BaseActivity {
     }
 
     private List<Post> init() {
+        InputStream inputStream = getResources().openRawResource(R.raw.home);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            String line = reader.readLine();
+            while (line != null) {
+                Log.d("Veyndan", line);
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         List<Post> posts = new ArrayList<>();
 
         String profileUrl, imageUrl, text;
