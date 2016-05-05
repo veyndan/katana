@@ -6,17 +6,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class VH extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.profile) ImageView profile;
-    @Bind(R.id.name) TextView name;
-    @Bind(R.id.like) ToggleButton like;
+    @BindView(R.id.profile) ImageView profile;
+    @BindView(R.id.name) TextView name;
+    @BindView(R.id.like) ToggleButton like;
 
-    @Bind(R.id.text) TextView text;
-    @Bind(R.id.image) ImageView image;
+    @BindView(R.id.text) TextView text;
+    @BindView(R.id.image) ImageView image;
 
     public VH(View itemView) {
         super(itemView);
