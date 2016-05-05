@@ -3,6 +3,7 @@ package com.veyndan.katana;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.StringDef;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,7 +14,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.List;
 
 public class FacebookAPI {
 
@@ -25,21 +25,11 @@ public class FacebookAPI {
     public @interface ID {}
 
     public static <T> T get(Context context, Uri request, Class<T> clazz) {
-        List<String> pathSegments = request.getPathSegments();
-
-        StringBuilder stringBuilder = new StringBuilder("k");
-
-        for (String pathSegment : pathSegments) {
-            stringBuilder.append("_");
-            stringBuilder.append(pathSegment);
-        }
-
         int res = context.getResources().getIdentifier(
-                stringBuilder.toString(), "raw", context.getPackageName());
+                resourceName(request), "raw", context.getPackageName());
 
-        InputStream inputStream = context.getResources().openRawResource(res);
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        InputStream input = context.getResources().openRawResource(res);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
         Gson gson = new GsonBuilder().create();
         T result = gson.fromJson(reader, clazz);
@@ -51,6 +41,17 @@ public class FacebookAPI {
         }
 
         return result;
+    }
+
+    /**
+     * Gets the resource name of the request, where the resource name is always prepended
+     * with "k_".
+     *
+     * @param request The request to get the resource name from.
+     * @return The resource name associated with a resource in res/raw.
+     */
+    private static String resourceName(Uri request) {
+        return "k_" + TextUtils.join("_", request.getPathSegments());
     }
 
     public static class RequestBuilder {
