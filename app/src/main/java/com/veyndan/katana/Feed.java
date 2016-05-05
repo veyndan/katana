@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Arrays;
 
-public final class Home {
+public final class Feed {
 
     Data[] data;
 
@@ -137,7 +137,7 @@ public final class Home {
 
     @Override
     public String toString() {
-        return "Home{" +
+        return "Feed{" +
                 "data=" + Arrays.toString(data) +
                 '}';
     }

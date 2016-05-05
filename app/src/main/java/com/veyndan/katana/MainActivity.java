@@ -7,18 +7,10 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,36 +56,21 @@ public class MainActivity extends BaseActivity {
     }
 
     private List<Post> init() {
-        InputStream inputStream = getResources().openRawResource(R.raw.home);
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-        Gson gson = new GsonBuilder().create();
-        Home result = gson.fromJson(reader, Home.class);
-
-        try {
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Log.d("Veyndan", result.toString());
-
         List<Post> posts = new ArrayList<>();
 
-        String profileUrl, imageUrl, text;
+        String profileUrl, text;
 
-        profileUrl = "https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/12923224_201256241563" +
-                "4637_6490425404654077477_n.jpg?oh=8b2c57c4d2ec59ba0605d28fe68a1e5c&oe=57B59F67";
-        imageUrl = "https://scontent-lhr3-1.xx.fbcdn.net/hphotos-xaf1/t31.0-8/12916955_20" +
-                "16582558565956_3030515090458717633_o.jpg";
-        Post.Description description = new Post.Description("Couldn't be happier.", imageUrl);
-        posts.add(new Post(this, profileUrl, "Veyndan Stuart", Post.NONE, "1 Apr at 15:17", description));
+        Feed feed = FacebookAPI.get(this, FacebookAPI.RequestBuilder.feed(FacebookAPI.ID_ME), Feed.class);
+
+        Feed.Data data = feed.data[0];
+
+        profileUrl = FacebookAPI.get(this, FacebookAPI.RequestBuilder.picture(data.from.id), Picture.class).data.url;
+        Post.Description description = new Post.Description("Couldn't be happier.", data.picture);
+        posts.add(new Post(this, profileUrl, data.from.name, Post.NONE, data.created_time, description));
 
         profileUrl = "https://images.unsplash.com/photo-1456769355437-50afa71c8863?ixlib=rb-0.3." +
                 "5&q=80&fm=jpg&crop=entropy&s=c9119822a43b8fbf134705964b90148c";
-        imageUrl = profileUrl;
-        description = new Post.Description(null, imageUrl);
+        description = new Post.Description(null, profileUrl);
         posts.add(new Post(this, profileUrl, "Roksolana Zasiadko", Post.UPDATE_PROFILE_PICTURE, "28 Mar at 12:54", description));
 
         profileUrl = "https://images.unsplash.com/photo-1460752652228-71887ef91aa4?ixlib=rb-0.3." +
@@ -102,6 +79,7 @@ public class MainActivity extends BaseActivity {
                 "all the other shit wrong with my car I'd turn the radio down.";
         description = new Post.Description(text, null);
         posts.add(new Post(this, profileUrl, "Sergey Svechnikov", Post.NONE, "27 Mar at 22:03", description));
+
 
         return posts;
     }
