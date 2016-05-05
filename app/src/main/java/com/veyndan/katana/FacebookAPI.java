@@ -2,7 +2,6 @@ package com.veyndan.katana;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.RawRes;
 import android.support.annotation.StringDef;
 
 import com.google.gson.Gson;
@@ -35,17 +34,8 @@ public class FacebookAPI {
             stringBuilder.append(pathSegment);
         }
 
-        @RawRes int res = 0;
-
-        switch (stringBuilder.toString()) {
-            case "k_1690301937860688_feed":
-                res = R.raw.k_1690301937860688_feed;
-                break;
-            case "k_1690301937860688_picture":
-                res = R.raw.k_1690301937860688_picture;
-                break;
-        }
-//        int res = context.getResources().getIdentifier(stringBuilder.toString(), "raw", null);
+        int res = context.getResources().getIdentifier(
+                stringBuilder.toString(), "raw", context.getPackageName());
 
         InputStream inputStream = context.getResources().openRawResource(res);
 
