@@ -51,16 +51,17 @@ public class FacebookAPI {
      * @return The resource name associated with a resource in res/raw.
      */
     private static String resourceName(Uri request) {
-        return "k_" + TextUtils.join("_", request.getPathSegments());
+        return TextUtils.join("_", request.getPathSegments());
     }
 
     public static class RequestBuilder {
 
         private static final String SCHEME = "https";
         private static final String AUTHORITY = "graph.facebook.com";
+        private static final String VERSION = "v26"; // v2.6
 
         private static Uri.Builder base() {
-            return new Uri.Builder().scheme(SCHEME).authority(AUTHORITY);
+            return new Uri.Builder().scheme(SCHEME).authority(AUTHORITY).appendPath(VERSION);
         }
 
         public static Uri feed(@ID String id) {
